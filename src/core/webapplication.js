@@ -118,11 +118,16 @@ export class WebApplication extends ARDemo
             return null;
         }
     
-        const videoSource = AR.Source.Camera({
-            constraints: {
-                deviceId: sessionStorage.getItem("deviceId")
-            }
-        });
+        if (sessionStorage.getItem("deviceId") == null) {
+            videoSource = AR.Source.Camera();
+        }
+        else {
+            videoSource = AR.Source.Camera({
+                constraints: {
+                    deviceId: sessionStorage.getItem("deviceId")
+                }
+            });
+        }
 
         const pointerSource = AR.Source.Pointer();
         const pointerTracker = AR.Tracker.Pointer({
