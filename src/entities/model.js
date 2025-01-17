@@ -35,13 +35,15 @@ export class Model extends Entity
     async loadData(pName, pUrlData, pPluginLoader)
     {
         this._name = pName;
-
-        BABYLON.SceneLoader.ImportMeshAsync("", pUrlData, "", this.ar.scene, null, pPluginLoader, "")
+        
+        return BABYLON.SceneLoader.ImportMeshAsync("", pUrlData, "", this.ar.scene, null, pPluginLoader, "")
         .then(model => this._rawModel = model)
         .then(() => this._LoadMeshesFromRaw())
+        .then(() => true)
         .catch(error => {
             this._rawModel = null;
             alert(error);
+            return false;
         });
     }
 

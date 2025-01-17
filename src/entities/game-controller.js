@@ -138,25 +138,23 @@ export class GameController extends Entity
 
     async _spawnModel(pIndex, pFilename, pBase64Data)
     {
-        try {
             if (this.models[pIndex] != null) {
                 this.models[pIndex].release();
             }
     
             this.models[pIndex] = await this._game.spawn(Model);
+            
             if (await this.models[pIndex].loadData(crypto.randomUUID(), pBase64Data, ".glb"))
             {
+                if (!this.models[pIndex].isLoaded) throw new Error("Model not loaded. Please check console for more information.");
+
                 this._changeModelSizes(this._modelSize);
                 this.ui.modelName[pIndex].text = pFilename;
 
-                localStorage.setItem("lastFilenameLoaded_" + (pIndex + 1), filename);
-                localStorage.setItem("lastModelLoaded_" + (pIndex + 1), base64String);
+                localStorage.setItem("lastFilenameLoaded_" + (pIndex + 1), pFilename);
+                localStorage.setItem("lastModelLoaded_" + (pIndex + 1), pBase64Data);
                 this.ui.showNoticeBoard(false);
             }
-        }
-        catch(e) {
-            alert(e);
-        }
     }
 
     async _changeModelSizes(pValue)
