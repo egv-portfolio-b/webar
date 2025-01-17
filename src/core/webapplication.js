@@ -118,6 +118,7 @@ export class WebApplication extends ARDemo
             return null;
         }
     
+        let videoSource = null;
         if (sessionStorage.getItem("deviceId") == null) {
             videoSource = AR.Source.Camera();
         }
