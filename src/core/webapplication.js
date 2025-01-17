@@ -56,7 +56,7 @@ export function InitializeWebApp() {
         throw new Error(`Can't find the babylon.js plugin for encantar.js`);
 
     encantar(new WebApplication()).catch(error => {
-        console.error(error.message);
+        alert(error.message);
     });
 }
 
@@ -109,13 +109,11 @@ export class WebApplication extends ARDemo
         viewport._resizer.setStrategy(new CustomResizeStrategy());
 
         if (!navigator.mediaDevices?.enumerateDevices) {
-            console.error("enumerateDevices() not supported.");
-            return null;
+            throw new Error("enumerateDevices() not supported.");
         }
     
         if (!navigator.mediaDevices?.getUserMedia) {
-            console.error("getUserMedia() not supported.");
-            return null;
+            throw new Error("getUserMedia() not supported.");
         }
     
         let videoSource = null;
