@@ -50,7 +50,7 @@ export class MainOverlay extends GUIControl
         modelSizeSlider.minimum = 0;
         modelSizeSlider.maximum = 100;
         modelSizeSlider.value = 50;
-        modelSizeSlider.height = "15px";
+        modelSizeSlider.height = "20px";
         modelSizeSlider.width = "450px";
         modelSizeSlider.color = "white";
         modelSizeSlider.background = "gray";
