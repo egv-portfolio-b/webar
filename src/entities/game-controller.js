@@ -110,15 +110,19 @@ export class GameController extends Entity
 
             const reader = new FileReader();
             reader.onload = async () => {
-
-                const base64String = reader.result;
-                const filename = file.name;
-
-                localStorage.setItem("lastFilenameLoaded_" + (pIndex + 1), filename);
-                localStorage.setItem("lastModelLoaded_" + (pIndex + 1), base64String);
-                this.ui.showNoticeBoard(false);
-
-                this._spawnModel(pIndex, filename, base64String);
+                try {
+                    const base64String = reader.result;
+                    const filename = file.name;
+    
+                    localStorage.setItem("lastFilenameLoaded_" + (pIndex + 1), filename);
+                    localStorage.setItem("lastModelLoaded_" + (pIndex + 1), base64String);
+                    this.ui.showNoticeBoard(false);
+    
+                    this._spawnModel(pIndex, filename, base64String);
+                }
+                catch(e) {
+                    alert(e);
+                }
             }
             reader.readAsDataURL(file);
         };
@@ -138,15 +142,20 @@ export class GameController extends Entity
 
     async _spawnModel(pIndex, pFilename, pBase64Data)
     {
-        if (this.models[pIndex] != null) {
-            this.models[pIndex].release();
+        try {
+            if (this.models[pIndex] != null) {
+                this.models[pIndex].release();
+            }
+    
+            this.models[pIndex] = await this._game.spawn(Model);
+            this.models[pIndex].loadData(crypto.randomUUID(), pBase64Data, ".glb");
+            this._changeModelSizes(this._modelSize);
+    
+            this.ui.modelName[pIndex].text = pFilename;
         }
-
-        this.models[pIndex] = await this._game.spawn(Model);
-        this.models[pIndex].loadData(crypto.randomUUID(), pBase64Data, ".glb");
-        this._changeModelSizes(this._modelSize);
-
-        this.ui.modelName[pIndex].text = pFilename;
+        catch(e) {
+            alert(e);
+        }
     }
 
     async _changeModelSizes(pValue)

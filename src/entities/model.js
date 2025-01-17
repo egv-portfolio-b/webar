@@ -31,8 +31,10 @@ export class Model extends Entity
     {
         this._name = pName;
 
-        this._rawModel = await BABYLON.SceneLoader.ImportMeshAsync("", pUrlData, "", this.ar.scene, null, pPluginLoader, "");
-        this._LoadMeshesFromRaw();
+        BABYLON.SceneLoader.ImportMeshAsync("", pUrlData, "", this.ar.scene, null, pPluginLoader, "")
+        .then(model => this._rawModel)
+        .then(() => this._LoadMeshesFromRaw())
+        .catch(error => alert(error));
     }
 
     async setVisibility(pVal)
