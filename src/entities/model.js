@@ -78,7 +78,10 @@ export class Model extends Entity
     release()
     {
         this._model.parent.removeChild(this._model);
-        this._rawModel.meshes.forEach(mesh => mesh.dispose());
+        this._model.dispose();
+        if (this._rawModel != null) {
+            this._rawModel.meshes.forEach(mesh => mesh.dispose());
+        }
     }
 
     _LoadMeshesFromRaw()
