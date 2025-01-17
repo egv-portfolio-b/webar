@@ -85,11 +85,11 @@ export class WebApplication extends ARDemo
             resolution: "sm"
         });
         imageTracker.addEventListener('targetfound', event => {
-            this.broadcast(new AppEvent('targetfound'));
+            this.broadcast(new AppEvent('targetfound', event.referenceImage));
         });
 
         imageTracker.addEventListener('targetlost', event => {
-            this.broadcast(new AppEvent('targetlost'));
+            this.broadcast(new AppEvent('targetlost', event.referenceImage));
         });
         await imageTracker.database.add([
         {

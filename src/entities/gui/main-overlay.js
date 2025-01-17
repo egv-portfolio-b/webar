@@ -6,6 +6,8 @@ export class MainOverlay extends GUIControl
     constructor(game)
     {
         super(game);
+
+        this._modelNameCtrl = [];
     }
 
     get modelName() {
@@ -22,7 +24,7 @@ export class MainOverlay extends GUIControl
 
         const modelContainer = new BABYLON.GUI.Rectangle();
         modelContainer.background = "#00000080";
-        modelContainer.height = "80px";
+        modelContainer.height = "120px";
         modelContainer.width = "1000px";
         modelContainer.left = "0px";
         modelContainer.top = "0px";
@@ -31,39 +33,8 @@ export class MainOverlay extends GUIControl
         modelContainer.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         container.addControl(modelContainer);
 
-        const modelLabel = new BABYLON.GUI.TextBlock();
-        modelLabel.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        modelLabel.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        modelLabel.text = 'Model:';
-        modelLabel.color = 'white';
-        modelLabel.fontFamily = 'arial';
-        modelLabel.fontSize = 32;
-        modelLabel.top = '20px';
-        modelLabel.left = '10px';
-        container.addControl(modelLabel);
-
-        const modelTxt = new BABYLON.GUI.TextBlock();
-        modelTxt.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        modelTxt.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        modelTxt.text = 'model 1';
-        modelTxt.color = 'white';
-        modelTxt.fontFamily = 'arial';
-        modelTxt.fontSize = 32;
-        modelTxt.top = '20px';
-        modelTxt.left = '130px';
-        container.addControl(modelTxt);
-        this._modelNameCtrl = modelTxt;
-
-        const changeModelBtn = BABYLON.GUI.Button.CreateImageOnlyButton("changeModelBtn", "assets/upload.png");
-        changeModelBtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        changeModelBtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        changeModelBtn.width = "50px";
-        changeModelBtn.height = "50px";
-        changeModelBtn.thickness = 0;
-        changeModelBtn.top = '20px';
-        changeModelBtn.left = '-30px';
-        container.addControl(changeModelBtn);
-        changeModelBtn.onPointerClickObservable.add(() => this._onClickModelChange(modelTxt));
+        this._createModel1Controls(container);
+        this._createModel2Controls(container);
 
         const modelSizeSlider = new BABYLON.GUI.Slider();
         modelSizeSlider.minimum = 0;
@@ -87,16 +58,94 @@ export class MainOverlay extends GUIControl
         const changeCameraBtn = BABYLON.GUI.Button.CreateImageOnlyButton("changeCameraBtn", "assets/camera.png");
         changeCameraBtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         changeCameraBtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-        changeCameraBtn.width = "120px";
-        changeCameraBtn.height = "120px";
+        changeCameraBtn.width = "100px";
+        changeCameraBtn.height = "100px";
         changeCameraBtn.thickness = 0;
-        changeCameraBtn.top = '-62px';
+        changeCameraBtn.top = '-32px';
         changeCameraBtn.left = '0px';
         console.log(changeCameraBtn);
         container.addControl(changeCameraBtn);
         changeCameraBtn.onPointerClickObservable.add(() => this._onClickCameraChange());
 
         return container;
+    }
+
+    _createModel1Controls(pContainer) {
+
+        let container = pContainer;
+
+        const modelLabel = new BABYLON.GUI.TextBlock();
+        modelLabel.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+        modelLabel.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        modelLabel.text = 'Model 1:';
+        modelLabel.color = 'white';
+        modelLabel.fontFamily = 'Sans-serif';
+        modelLabel.fontSize = 24;
+        modelLabel.top = '10px';
+        modelLabel.left = '10px';
+        container.addControl(modelLabel);
+
+        const modelTxt = new BABYLON.GUI.TextBlock();
+        modelTxt.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+        modelTxt.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        modelTxt.text = 'model 1';
+        modelTxt.color = 'white';
+        modelTxt.fontFamily = 'Sans-serif';
+        modelTxt.fontSize = 24;
+        modelTxt.top = '10px';
+        modelTxt.left = '120px';
+        container.addControl(modelTxt);
+        this._modelNameCtrl.push(modelTxt);
+
+        const changeModelBtn = BABYLON.GUI.Button.CreateImageOnlyButton("changeModelBtn", "assets/upload.png");
+        changeModelBtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        changeModelBtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        changeModelBtn.width = "45px";
+        changeModelBtn.height = "45px";
+        changeModelBtn.thickness = 0;
+        changeModelBtn.top = '0px';
+        changeModelBtn.left = '-30px';
+        container.addControl(changeModelBtn);
+        changeModelBtn.onPointerClickObservable.add(() => this._onClickModelChange(0, modelTxt));
+    }
+
+    _createModel2Controls(pContainer) {
+
+        let container = pContainer;
+
+        const modelLabel = new BABYLON.GUI.TextBlock();
+        modelLabel.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+        modelLabel.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        modelLabel.text = 'Model 2:';
+        modelLabel.color = 'white';
+        modelLabel.fontFamily = 'Sans-serif';
+        modelLabel.fontSize = 24;
+        modelLabel.top = '65px';
+        modelLabel.left = '10px';
+        container.addControl(modelLabel);
+
+        const modelTxt = new BABYLON.GUI.TextBlock();
+        modelTxt.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+        modelTxt.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        modelTxt.text = 'model 1';
+        modelTxt.color = 'white';
+        modelTxt.fontFamily = 'Sans-serif';
+        modelTxt.fontSize = 24;
+        modelTxt.top = '65px';
+        modelTxt.left = '120px';
+        container.addControl(modelTxt);
+        this._modelNameCtrl.push(modelTxt);
+
+        const changeModelBtn = BABYLON.GUI.Button.CreateImageOnlyButton("changeModelBtn", "assets/upload.png");
+        changeModelBtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        changeModelBtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        changeModelBtn.width = "45px";
+        changeModelBtn.height = "45px";
+        changeModelBtn.thickness = 0;
+        changeModelBtn.top = '60px';
+        changeModelBtn.left = '-30px';
+        container.addControl(changeModelBtn);
+        changeModelBtn.onPointerClickObservable.add(() => this._onClickModelChange(1, modelTxt));
     }
 
     update()
@@ -113,9 +162,9 @@ export class MainOverlay extends GUIControl
         this._broadcast(new AppEvent('camerachanged'));
     }
 
-    _onClickModelChange(pTextbox)
+    _onClickModelChange(pIndex, pTextbox)
     {
-        this._broadcast(new AppEvent('modelchanged', {
+        this._broadcast(new AppEvent('modelchanged-' + (pIndex + 1), {
             textbox: pTextbox
         }));
     }

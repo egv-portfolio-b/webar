@@ -4,7 +4,6 @@ import { MainOverlay } from './gui/main-overlay.js';
 
 
 export const ASSETLIST = [
-    'goal.glb',
 ];
 
 export class GameController extends Entity
@@ -17,11 +16,12 @@ export class GameController extends Entity
     async init()
     {
         this.ui = await this._game.spawn(MainOverlay);
+        this.models = [];
 
-        this.changeModelSize(5);
+        this._changeModelSizes(5);
 
-        _loadCachedModel(0);
-        _loadCachedModel(1);
+        this._loadCachedModel(0);
+        this._loadCachedModel(1);
     }
 
     update()
@@ -119,23 +119,23 @@ export class GameController extends Entity
 
     async _showModel(pIndex)
     {
-        if (this.model[pIndex] == null) return;
+        if (this.models[pIndex] == null) return;
 
-        for(let i = 0; i < this.model.length; i++)
+        for(let i = 0; i < this.models.length; i++)
         {
-            this.model[i].setVisibility(i == pIndex);
+            this.models[i].setVisibility(i == pIndex);
         }
     }
 
     async _spawnModel(pIndex, pFilename, pBase64Data)
     {
-        if (this.model[pIndex] != null) {
-            this.model[pIndex].release();
+        if (this.models[pIndex] != null) {
+            this.models[pIndex].release();
         }
 
-        this.model[pIndex] = await this._game.spawn(Model);
-        this.model[pIndex].loadData(crypto.randomUUID(), pBase64Data, ".glb");
-        this.changeModelSizes(this._modelSize);
+        this.models[pIndex] = await this._game.spawn(Model);
+        this.models[pIndex].loadData(crypto.randomUUID(), pBase64Data, ".glb");
+        this._changeModelSizes(this._modelSize);
 
         this.ui.modelName[pIndex].text = pFilename;
     }
@@ -144,7 +144,7 @@ export class GameController extends Entity
     {
         this._modelSize = pValue;
 
-        this.model.forEach(model => {
+        this.models.forEach(model => {
             model.scale.x  = model.scale.y = model.scale.z = this._modelSize;
         });
     }
