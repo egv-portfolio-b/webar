@@ -20,8 +20,16 @@ export class GameController extends Entity
 
         this._changeModelSizes(5);
 
-        this._loadCachedModel(0);
-        this._loadCachedModel(1);
+        if (localStorage.getItem("lastFilenameLoaded_1") == null && localStorage.getItem("lastFilenameLoaded_2") == null) {
+            this.ui.showNoticeBoard(true);
+        }
+        else {
+            
+            this.ui.showNoticeBoard(false);
+
+            this._loadCachedModel(0);
+            this._loadCachedModel(1);
+        }
     }
 
     update()
@@ -108,6 +116,7 @@ export class GameController extends Entity
 
                 localStorage.setItem("lastFilenameLoaded_" + (pIndex + 1), filename);
                 localStorage.setItem("lastModelLoaded_" + (pIndex + 1), base64String);
+                this.ui.showNoticeBoard(false);
 
                 this._spawnModel(pIndex, filename, base64String);
             }

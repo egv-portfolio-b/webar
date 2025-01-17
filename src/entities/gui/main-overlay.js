@@ -17,10 +17,20 @@ export class MainOverlay extends GUIControl
     get sizeSlider() {
         return this._sizeSlider;
     }
+    
+    showNoticeBoard(pVal) {
+        if (pVal) {
+            this._rootContainer.addControl(this._noticeBoard);
+        }
+        else {
+            this._rootContainer.removeControl(this._noticeBoard);
+        }
+    }
 
     _createControl()
     {
         const container = new BABYLON.GUI.Container();
+        this._rootContainer = container;
 
         const modelContainer = new BABYLON.GUI.Rectangle();
         modelContainer.background = "#00000080";
@@ -67,7 +77,35 @@ export class MainOverlay extends GUIControl
         container.addControl(changeCameraBtn);
         changeCameraBtn.onPointerClickObservable.add(() => this._onClickCameraChange());
 
+        this._createNoticeBoard();
+
+
         return container;
+    }
+
+    _createNoticeBoard() {
+
+        const noticeBoard = new BABYLON.GUI.Container();
+        noticeBoard.background = "#000000d0";
+        noticeBoard.height = "500px";
+        noticeBoard.width = "500px";
+        noticeBoard.left = "0px";
+        noticeBoard.top = "-50px";
+        noticeBoard.thickness = 0;
+        noticeBoard.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        noticeBoard.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        this._noticeBoard = noticeBoard;
+
+        const noticeLabel = new BABYLON.GUI.TextBlock();
+        noticeLabel.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        noticeLabel.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        noticeLabel.text = 'Please upload a model first by\nclicking the folder icons at\nthe top.';
+        noticeLabel.color = 'white';
+        noticeLabel.fontFamily = 'Sans-serif';
+        noticeLabel.fontSize = 32;
+        noticeLabel.top = '0px';
+        noticeLabel.left = '0px';
+        noticeBoard.addControl(noticeLabel);
     }
 
     _createModel1Controls(pContainer) {
