@@ -81,18 +81,18 @@ export class MainOverlay extends GUIControl
         modelLabel.color = 'white';
         modelLabel.fontFamily = 'Sans-serif';
         modelLabel.fontSize = 24;
-        modelLabel.top = '10px';
+        modelLabel.top = '15px';
         modelLabel.left = '10px';
         container.addControl(modelLabel);
 
         const modelTxt = new BABYLON.GUI.TextBlock();
         modelTxt.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
         modelTxt.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        modelTxt.text = 'model 1';
+        modelTxt.text = 'none';
         modelTxt.color = 'white';
         modelTxt.fontFamily = 'Sans-serif';
         modelTxt.fontSize = 24;
-        modelTxt.top = '10px';
+        modelTxt.top = '15px';
         modelTxt.left = '120px';
         container.addControl(modelTxt);
         this._modelNameCtrl.push(modelTxt);
@@ -120,18 +120,18 @@ export class MainOverlay extends GUIControl
         modelLabel.color = 'white';
         modelLabel.fontFamily = 'Sans-serif';
         modelLabel.fontSize = 24;
-        modelLabel.top = '65px';
+        modelLabel.top = '67px';
         modelLabel.left = '10px';
         container.addControl(modelLabel);
 
         const modelTxt = new BABYLON.GUI.TextBlock();
         modelTxt.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
         modelTxt.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        modelTxt.text = 'model 1';
+        modelTxt.text = 'none';
         modelTxt.color = 'white';
         modelTxt.fontFamily = 'Sans-serif';
         modelTxt.fontSize = 24;
-        modelTxt.top = '65px';
+        modelTxt.top = '67px';
         modelTxt.left = '120px';
         container.addControl(modelTxt);
         this._modelNameCtrl.push(modelTxt);
