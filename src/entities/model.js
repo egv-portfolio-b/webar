@@ -27,14 +27,22 @@ export class Model extends Entity
         return this._model.scaling;
     }
 
+    get isLoaded()
+    {
+        return this._rawModel != null;
+    }
+
     async loadData(pName, pUrlData, pPluginLoader)
     {
         this._name = pName;
 
         BABYLON.SceneLoader.ImportMeshAsync("", pUrlData, "", this.ar.scene, null, pPluginLoader, "")
-        .then(model => this._rawModel)
+        .then(model => this._rawModel = model)
         .then(() => this._LoadMeshesFromRaw())
-        .catch(error => alert(error));
+        .catch(error => {
+            this._rawModel = null;
+            alert(error);
+        });
     }
 
     async setVisibility(pVal)
